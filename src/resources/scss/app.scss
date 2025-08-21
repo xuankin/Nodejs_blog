@@ -1,0 +1,7 @@
+@use "variable" as *;
+h1 {
+  color: $h1Color;
+}
+h2 {
+  color: $h2Color;
+}
