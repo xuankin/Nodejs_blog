@@ -1,7 +1,7 @@
-@use "variable" as *;
+@use 'variable' as *;
 h1 {
-  color: $h1Color;
+    color: $h1Color;
 }
 h2 {
-  color: $h2Color;
+    color: $h2Color;
 }
