@@ -1,0 +1,52 @@
+<div class="mt-4">
+  <h3>Cap nhat khoa hoc</h3>
+  <form method="POST" action="/courses/{{course._id}}?_method=PUT">
+    <div class="mb-3">
+      <label for="name">Ten khoa hoc</label>
+      <input
+        type="text"
+        class="form-control"
+        id="name"
+        aria-describedby="emailHelp"
+        name="name"
+        value="{{course.name}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="description">Mo ta</label>
+      <textarea
+        class="form-control"
+        id="description"
+        aria-describedby="emailHelp"
+        name="description"
+      >
+
+        {{course.description}}
+      </textarea>
+    </div>
+    <div class="mb-3">
+      <label for="videoId">Video ID</label>
+      <input
+        type="text"
+        class="form-control"
+        id="videoId"
+        aria-describedby="emailHelp"
+        name="videoId"
+        value="{{course.videoId}}"
+      />
+    </div>
+    <div class="mb-3">
+      <label for="level">Level</label>
+      <input
+        type="text"
+        class="form-control"
+        id="level"
+        aria-describedby="emailHelp"
+        name="level"
+        value="{{course.level}}"
+      />
+    </div>
+
+    <button type="submit" class="btn btn-primary">Luu lai</button>
+  </form>
+</div>

@@ -1,9 +1,12 @@
-h1 {
-  color: yellow;
+.card-courses-item {
+  margin-top: 15px;
 }
 
-h2 {
-  color: yellow;
+.user-avatar {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  margin-right: 4px;
 }
 
 /*# sourceMappingURL=app.css.map */

@@ -1,0 +1,82 @@
+<div class="mt-4">
+  <h2>Khoa hoc cua toi</h2>
+  <table class="table mt-4">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+
+        <th scope="col">Level</th>
+        <th scope="col">Image</th>
+        <th scope="col">Thoi gian tao</th>
+        <th scope="col">Hanh Dong</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each courses}}
+        <tr>
+          <th scope="row">{{sum @index 1}}</th>
+          <td>{{this.name}}</td>
+          <td>{{this.level}}</td>
+          <td>{{this.image}}</td>
+          <td>{{this.createdAt}}</td>
+          <td class="d-flex gap-1">
+            <a href="/courses/{{this._id}}/edit" class="btn btn-primary">Sua</a>
+            <a
+              class="btn btn-danger"
+              data-bs-toggle="modal"
+              data-bs-target="#delete-Courses-Modal"
+              data-bs-id="{{this._id}}"
+            >Xoa</a>
+          </td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
+
+{{! Confirm delete courses }}
+<form method="POST" action="" name="delete-Form">
+  <div id="delete-Courses-Modal" class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <p>Ban co muon xoa khoa hoc nay? </p>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+          >Huy</button>
+          <button
+            id="btn-delete-courses"
+            type="button"
+            class="btn btn-danger"
+          >Xoa bo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<script>
+  var courseId; var deleteForm = document.forms['delete-Form']; var
+  btnDeleteCourses = document.querySelector("#btn-delete-courses");const
+  exampleModal = document.getElementById('delete-Courses-Modal') ;
+  if(exampleModal) { exampleModal.addEventListener('show.bs.modal', event => { ;
+  const button = event.relatedTarget; const recipient
+  =button.getAttribute('data-bs-id') ; courseId = recipient; });
+  btnDeleteCourses.addEventListener('click',function(){
+  deleteForm.action='/courses/'+courseId+'?_method=DELETE' ;
+  deleteForm.submit(); }) }
+</script>
