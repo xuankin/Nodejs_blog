@@ -72,5 +72,34 @@ class CourseController {
       next(err);
     }
   }
+  //[POST]  /courses/handleFormAction
+  async handleFormAction(req, res, next) {
+    switch (req.body.action) {
+      case "delete":
+        try {
+          await Course.delete({ _id: { $in: req.body.courseIds } });
+          res.redirect("/me/stored/courses");
+        } catch (err) {
+          next(err);
+        }
+        break;
+      case "restore":
+        try {
+          await Course.restore({ _id: { $in: req.body.courseIds } });
+          res.redirect("/me/trash/courses");
+        } catch (err) {
+          next(err);
+        }
+      case "destroy":
+        try {
+          await Course.deleteMany({ _id: { $in: req.body.courseIds } });
+          res.redirect("/me/trash/courses");
+        } catch (err) {
+          next(err);
+        }
+      default:
+        res.json({ message: "Action is invalid!" });
+    }
+  }
 }
 module.exports = new CourseController();
