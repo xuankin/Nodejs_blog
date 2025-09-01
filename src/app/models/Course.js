@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const slugify = require("slugify");
+const mongooseDelete = require("mongoose-delete");
 
 const Schema = mongoose.Schema;
-
 const Course = new Schema(
   {
     name: { type: String, required: true },
@@ -15,6 +15,7 @@ const Course = new Schema(
   { timestamps: true }
 );
 
+Course.plugin(mongooseDelete, { deletedAt: true, overrideMethods: "all" });
 // Tự động tạo slug trước khi lưu
 Course.pre("save", function (next) {
   if (this.name) {

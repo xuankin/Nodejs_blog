@@ -1,11 +1,13 @@
 <div class="mt-4">
-  <h2>Khoa hoc cua toi</h2>
+  <div><h2>Khoa hoc cua toi</h2>
+ 
+    <a href="/me/trash/courses">Thung rac ({{deletedCount}})</a></div>
+  
   <table class="table mt-4">
     <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Name</th>
-
         <th scope="col">Level</th>
         <th scope="col">Image</th>
         <th scope="col">Thoi gian tao</th>
@@ -29,6 +31,14 @@
               data-bs-id="{{this._id}}"
             >Xoa</a>
           </td>
+        </tr>
+
+      {{else}}
+        <tr class="text-center">
+          <td colspan="5">Ban chua dang khoa hoc nao.<a
+              href="/courses/create"
+            >Dang khoa hoc</a></td>
+
         </tr>
       {{/each}}
     </tbody>
@@ -70,13 +80,27 @@
 </form>
 
 <script>
-  var courseId; var deleteForm = document.forms['delete-Form']; var
-  btnDeleteCourses = document.querySelector("#btn-delete-courses");const
-  exampleModal = document.getElementById('delete-Courses-Modal') ;
-  if(exampleModal) { exampleModal.addEventListener('show.bs.modal', event => { ;
-  const button = event.relatedTarget; const recipient
-  =button.getAttribute('data-bs-id') ; courseId = recipient; });
-  btnDeleteCourses.addEventListener('click',function(){
-  deleteForm.action='/courses/'+courseId+'?_method=DELETE' ;
-  deleteForm.submit(); }) }
+  document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("delete-Courses-Modal");
+  const deleteForm = document.forms["delete-Form"];
+  const btnConfirmDelete = document.getElementById("btn-delete-courses");
+  let courseId = null;
+
+  if (modal) {
+    // Khi modal mở
+    modal.addEventListener("show.bs.modal", (event) => {
+      const button = event.relatedTarget; // nút bấm mở modal
+      courseId = button.getAttribute("data-bs-id"); // lấy id từ data-bs-id
+    });
+
+    // Khi click nút xác nhận xóa
+    btnConfirmDelete.addEventListener("click", () => {
+      if (courseId) {
+        deleteForm.action = `/courses/${courseId}?_method=DELETE`;
+        deleteForm.submit();
+      }
+    });
+  }
+});
+
 </script>

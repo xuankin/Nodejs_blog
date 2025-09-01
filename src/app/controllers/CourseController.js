@@ -21,7 +21,7 @@ class CourseController {
       formData.image = `https://i.ytimg.com/vi/${req.body.videoId}/hqdefault.jpg?sqp=-oaymwEmCKgBEF5IWvKriqkDGQgBFQAAiEIYAdgBAeIBCggYEAIYBjgBQAE=&rs=AOn4CLDGzeson_3R5LD5tdzOOJrSCLptew`;
       const course = new Course(formData);
       await course.save();
-      res.redirect("/");
+      res.redirect("/me/stored/courses");
     } catch (err) {
       console.error(err);
     }
@@ -47,8 +47,27 @@ class CourseController {
   //[DELETE] /course/:id
   async destroy(req, res, next) {
     try {
-      await Course.deleteOne({ _id: req.params.id });
+      await Course.delete({ _id: req.params.id });
       res.redirect("/me/stored/courses");
+    } catch (err) {
+      next(err);
+    }
+  }
+  //[DELETE] /course/:id/force
+  async forceDestroy(req, res, next) {
+    try {
+      await Course.deleteOne({ _id: req.params.id });
+      res.redirect("/me/trash/courses");
+    } catch (err) {
+      next(err);
+    }
+  }
+
+  //[PATCH] /course/:id/restore\
+  async restore(req, res, next) {
+    try {
+      await Course.restore({ _id: req.params.id });
+      res.redirect("/me/trash/courses");
     } catch (err) {
       next(err);
     }
