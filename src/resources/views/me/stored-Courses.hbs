@@ -16,14 +16,15 @@
 </select>
 <button class="btn btn-primary btn-sm disabled check-all-submit-btn">Thuc hien</button>
     </div>
+   
   <table class="table mt-4">
     <thead>
       <tr>
         <th scope="col" colspan="2">#</th>
-        <th scope="col " style="width:120px;">Name <a href="?_sort&column=name&type=asc"><i class="fa-solid fa-sort d-inline"></i></a></th>
-        <th scope="col">Level</th>
-        <th scope="col">Image</th>
-        <th scope="col">Thoi gian tao</th>
+        <th scope="col " style="width:120px;">Name {{{sortable 'name' _sort }}}</th>
+        <th scope="col">Level {{{sortable 'level' _sort }}}</th>
+        
+        <th scope="col">Thoi gian tao {{{sortable 'createdAt' _sort }}}</th>
         <th scope="col">Hanh Dong</th>
       </tr>
     </thead>
@@ -34,10 +35,10 @@
          <input type="checkbox" class="form-check-input" name="courseIds[]" value="{{this._id}}" >
         </div>
         </td>
-          <th scope="row">{{sum @index 1}}</th>
+          <th scope="row">{{this._id}}</th>
           <td>{{this.name}}</td>
           <td>{{this.level}}</td>
-          <td>{{this.image}}</td>
+          
           <td>{{this.createdAt}}</td>
           <td class="d-flex gap-1">
             <a href="/courses/{{this._id}}/edit" class="btn btn-primary">Sua</a>

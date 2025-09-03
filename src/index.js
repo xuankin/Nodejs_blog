@@ -10,21 +10,21 @@ const db = require("./config/db");
 const methodOverride = require("method-override");
 // app.use(morgan("combined"));
 
+const SortMiddleware = require("./app/middlewares/SortMiddleware");
+const Handlebars = require("handlebars");
 // connect to db
 
 db.connect();
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(methodOverride("_method"));
-
+app.use(SortMiddleware);
 app.use(express.static(path.join(__dirname, "public")));
 app.engine(
   "hbs",
   hbs.engine({
     extname: ".hbs",
-    helpers: {
-      sum: (a, b) => a + b,
-    },
+    helpers: require("./helpers/handlebars"),
   })
 );
 app.set("view engine", ".hbs");

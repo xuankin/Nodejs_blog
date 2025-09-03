@@ -23,9 +23,10 @@ class CourseController {
       await course.save();
       res.redirect("/me/stored/courses");
     } catch (err) {
-      console.error(err);
+      next(err);
     }
   }
+
   //[GET]/courses/:id/edit
   edit(req, res, next) {
     Course.findOne({ _id: req.params.id })

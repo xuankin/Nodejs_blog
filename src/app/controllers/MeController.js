@@ -3,15 +3,8 @@ const Course = require("../models/Course");
 class MeController {
   // [GET] /me/stored/courses
   show(req, res, next) {
-    let courseQuery = Course.find({}).lean();
-
-    if ("_sort" in req.query) {
-      courseQuery = courseQuery.sort({
-        [req.query.column]: req.query.type,
-      });
-    }
     Promise.all([
-      courseQuery,
+      Course.find({}).sortable(req).lean(),
       Course.countDocumentsWithDeleted({ deleted: true }),
     ])
       .then(([courses, deletedCount]) => {
